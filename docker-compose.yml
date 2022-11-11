@@ -1,0 +1,38 @@
+version: '3.8'
+services:
+  mysqldb:
+    container_name: mysql
+    image: mysql:8.0.30
+    restart: always
+    env_file: ./.env
+    build: #
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      MYSQL_ROOT_PASSWORD: $NEST_MYSQL_PASSWORD
+      MYSQL_DATABASE: $NEST_MYSQL_DATABASE
+      MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
+      MYSQL_USER: $NEST_MYSQL_USER
+      MYSQL_PASSWORD: $NEST_MYSQL_PASSWORD
+      TZ: America/New_York
+    ports:
+      - 3306:$NEST_MYSQL_PORT
+    volumes:
+      - db-config:/etc/mysql
+      - db-data:/var/lib/mysql
+    command: --default-authentication-plugin=mysql_native_password
+    logging:
+      driver: $DOCKER_LOGGING_MYSQL
+    cap_add:
+      - SYS_NICE # CAP_SYS_NICE
+    networks:
+      - elastic
+
+volumes:
+  db-config:
+  db-data:
+
+networks:
+  elastic:
+    driver: bridge
+    
