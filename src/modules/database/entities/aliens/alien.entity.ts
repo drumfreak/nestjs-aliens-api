@@ -1,3 +1,6 @@
+import { ManyToMany } from 'typeorm';
+import { JoinTable } from 'typeorm';
+import { Abduction } from '../abductions';
 import { ApiProperty } from '@nestjs/swagger';
 import { IsDateString } from 'class-validator';
 import {
@@ -53,6 +56,23 @@ export class Alien {
     format: 'text',
   })
   description?: string;
+
+  // Inserted on 2022-11-11T23:13:20.054Z
+  @ApiProperty({
+    name: 'abductions',
+    title: 'Abductions',
+    description: 'Abductions',
+    type: [Abduction],
+  })
+  @ManyToMany(() => Abduction, (abductions) => abductions.aliens, {
+    cascade: ['insert', 'update'],
+    // onDelete: 'CASCADE',
+    eager: false,
+  })
+  // @JoinTable()
+  abductions?: Abduction[];
+
+  // Inserted
 
   @CreateDateColumn({
     type: 'timestamp',

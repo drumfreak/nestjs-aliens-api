@@ -1,3 +1,10 @@
+import { Transform } from 'class-transformer';
+import { IsJSON } from 'class-validator';
+import { IsOptional, IsBoolean } from 'class-validator';
+import { Human } from '../humans';
+import { ManyToMany } from 'typeorm';
+import { JoinTable } from 'typeorm';
+import { Alien } from '../aliens';
 import { ApiProperty } from '@nestjs/swagger';
 import { IsDateString } from 'class-validator';
 import {
@@ -54,6 +61,60 @@ export class Abduction {
   })
   description?: string;
 
+  // Inserted on 2022-11-11T23:15:10.390Z
+  @Column({
+    type: 'timestamp',
+    default: null,
+    nullable: true,
+  })
+  @ApiProperty({
+    name: 'abductionDate',
+    title: 'Abduction Date Date',
+    description: 'The abduction date date of the item',
+    example: 'Abduction Date example',
+    type: 'date',
+    required: false,
+    default: null,
+  })
+  @IsDateString()
+  abductionDate?: Date;
+  // Inserted
+
+  // Inserted on 2022-11-11T23:12:56.665Z
+  @ApiProperty({
+    name: 'aliens',
+    title: 'Aliens',
+    description: 'Aliens',
+    type: [Alien],
+  })
+  @ManyToMany(() => Alien, (aliens) => aliens.abductions, {
+    cascade: ['insert', 'update'],
+    // onDelete: 'CASCADE',
+    eager: true,
+  })
+  @JoinTable()
+  aliens?: Alien[];
+  // Inserted
+
+  // Inserted on 2022-11-11T23:15:40.916Z
+  @Column({
+    type: 'boolean',
+    default: false,
+  })
+  @ApiProperty({
+    name: 'didItHurt',
+    title: 'Did It Hurt',
+    description: 'The did it hurt of the item',
+    example: 'Did It Hurt example',
+    type: Boolean,
+    required: false,
+  })
+  @IsBoolean()
+  @IsOptional()
+  @Transform(({ value }) => value ?? false)
+  didItHurt?: boolean;
+  // Inserted
+
   @CreateDateColumn({
     type: 'timestamp',
     default: () => 'CURRENT_TIMESTAMP(6)',
@@ -68,6 +129,22 @@ export class Abduction {
   })
   @IsDateString()
   createdAt?: Date;
+
+  // Inserted on 2022-11-11T23:14:14.393Z
+  @ApiProperty({
+    name: 'humans',
+    title: 'Humans',
+    description: 'Humans',
+    type: [Human],
+  })
+  @ManyToMany(() => Human, (humans) => humans.abductions, {
+    cascade: ['insert', 'update'],
+    // onDelete: 'CASCADE',
+    eager: true,
+  })
+  @JoinTable()
+  humans?: Human[];
+  // Inserted
 
   @UpdateDateColumn({
     type: 'timestamp',
