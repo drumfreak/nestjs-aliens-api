@@ -15,11 +15,23 @@ export class LocationGetByIdRequestDTO {
   id?: number;
 }
 export class LocationCreateRequestDTO extends PartialType(
-  OmitType(Location, ['id', 'createdAt', 'updatedAt', 'deletedAt'] as const),
+  OmitType(Location, [
+    'id',
+    'human',
+    'createdAt',
+    'updatedAt',
+    'deletedAt',
+  ] as const),
 ) {}
 
 export class LocationPatchRequestDTO extends PartialType(
-  OmitType(Location, ['id', 'createdAt', 'updatedAt', 'deletedAt'] as const),
+  OmitType(Location, [
+    'id',
+    'human',
+    'createdAt',
+    'updatedAt',
+    'deletedAt',
+  ] as const),
 ) {}
 
 export class LocationsSearchRequestDTO {

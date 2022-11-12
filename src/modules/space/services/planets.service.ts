@@ -7,13 +7,13 @@ import {
 import { InjectDataSource } from '@nestjs/typeorm';
 import PaginatorQueryBuilder from '../../../common/classes/PaginatorQueryBuilder.class';
 import { DataSource, Repository } from 'typeorm';
-import { Alien } from '../../database/entities/aliens';
-import { AliensListRequestDTO, AlienCreateRequestDTO } from '../dto';
+import { Planet } from '../../database/entities/planets';
+import { PlanetsListRequestDTO, PlanetCreateRequestDTO } from '../dto';
 
 @Injectable()
-export class AliensService {
-  private readonly logger = new Logger(AliensService.name);
-  private repository: Repository<Alien>;
+export class PlanetsService {
+  private readonly logger = new Logger(PlanetsService.name);
+  private repository: Repository<Planet>;
   private paginatorQueryBuilder: PaginatorQueryBuilder =
     new PaginatorQueryBuilder();
 
@@ -22,7 +22,7 @@ export class AliensService {
     @InjectDataSource()
     private readonly dataSource: DataSource,
   ) {
-    this.repository = this.dataSource.manager.getRepository(Alien);
+    this.repository = this.dataSource.manager.getRepository(Planet);
     this.paginatorQueryBuilder = new PaginatorQueryBuilder();
   }
 
@@ -30,7 +30,7 @@ export class AliensService {
     try {
       const f: any = await this.repository.findOne({
         where: { id: Number(id) },
-        relations: ['abductions', 'spaceship', 'planet'],
+        // relations: ['relation1']
       });
       // OR use querybuilder:
       //  const f: any = await this.repository.createQueryBuilder('item')
@@ -49,7 +49,7 @@ export class AliensService {
       if (f) {
         return f;
       } else {
-        throw new NotFoundException('Unable to find Alien');
+        throw new NotFoundException('Unable to find Planet');
       }
     } catch (error: any) {
       this.logger.warn(error);
@@ -57,7 +57,7 @@ export class AliensService {
     }
   }
 
-  async save(item: AlienCreateRequestDTO) {
+  async save(item: PlanetCreateRequestDTO) {
     try {
       const c = await this.repository.save(item);
       if (c) {
@@ -82,7 +82,7 @@ export class AliensService {
       if (f) {
         return {
           status: 'fail',
-          message: 'Alien already exists. Try updating instead.',
+          message: 'Planet already exists. Try updating instead.',
           result: f,
         };
       } else {
@@ -90,7 +90,7 @@ export class AliensService {
         if (f2) {
           return { status: 'success', result: f2 };
         } else {
-          throw new InternalServerErrorException('Unable to create alien');
+          throw new InternalServerErrorException('Unable to create planet');
         }
       }
     } catch (error) {
@@ -101,7 +101,7 @@ export class AliensService {
 
   async update(id: any, body: any) {
     try {
-      const item: Alien = await this.getById(id);
+      const item: Planet = await this.getById(id);
       if (item?.id) {
         const newItem: any = this.repository.merge({
           ...body,
@@ -112,10 +112,10 @@ export class AliensService {
           const f2: any = await this.getById(id);
           return f2;
         } else {
-          throw new NotFoundException('Unable to find Alien');
+          throw new NotFoundException('Unable to find Planet');
         }
       } else {
-        throw new NotFoundException('Unable to find Alien');
+        throw new NotFoundException('Unable to find Planet');
       }
     } catch (error: any) {
       this.logger.warn(error);
@@ -125,7 +125,7 @@ export class AliensService {
 
   async search(body: any) {
     try {
-      console.log('Aliens Search Body', body);
+      console.log('Planets Search Body', body);
       return {
         status: 'success',
         data: { result: [], totalCount: 0 },
@@ -136,7 +136,7 @@ export class AliensService {
     }
   }
 
-  async list(body: AliensListRequestDTO) {
+  async list(body: PlanetsListRequestDTO) {
     try {
       const { where, order, orWhere, skip, take, filter } =
         this.paginatorQueryBuilder.buildQuery(body, 'items');
@@ -189,10 +189,10 @@ export class AliensService {
         return {
           status: 'success',
           data: { result: f },
-          message: 'Alien deleted',
+          message: 'Planet deleted',
         };
       } else {
-        throw new NotFoundException('Unable to find alien');
+        throw new NotFoundException('Unable to find planet');
       }
     } catch (error: any) {
       this.logger.warn(error);

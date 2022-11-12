@@ -1,3 +1,9 @@
+import { JoinColumn } from 'typeorm';
+import { ManyToOne } from 'typeorm';
+import { OneToMany } from 'typeorm';
+import { IsOptional } from 'class-validator';
+import { IsNumberString } from 'class-validator';
+import { Human } from '../humans';
 import { ApiProperty } from '@nestjs/swagger';
 import { IsDateString } from 'class-validator';
 import {
@@ -37,6 +43,34 @@ export class Location {
     format: 'text',
   })
   name: string;
+
+  // Inserted on 2022-11-11T23:40:10.726Z
+  @ApiProperty({
+    name: 'human',
+    title: 'Human',
+    description: 'Human',
+    type: Human,
+  })
+  @ManyToOne(() => Human, {
+    cascade: ['insert', 'update'],
+    eager: false,
+  })
+  @JoinColumn({ name: 'humanId' })
+  human?: Human;
+
+  @Column({ nullable: true })
+  @ApiProperty({
+    name: 'humanId',
+    title: 'Human Id',
+    description: 'Human Id',
+    example: 1,
+    default: 1,
+    type: Number,
+  })
+  // @IsNumberString()
+  humanId?: number;
+
+  // Inserted
 
   @Column({
     type: 'text',

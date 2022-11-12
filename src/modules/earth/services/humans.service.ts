@@ -30,7 +30,7 @@ export class HumansService {
     try {
       const f: any = await this.repository.findOne({
         where: { id: Number(id) },
-        // relations: ['relation1']
+        relations: ['abductions'],
       });
       // OR use querybuilder:
       //  const f: any = await this.repository.createQueryBuilder('item')

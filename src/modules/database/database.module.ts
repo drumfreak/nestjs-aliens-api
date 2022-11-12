@@ -8,6 +8,8 @@ import { Alien } from './entities/aliens';
 import { Human } from './entities/humans';
 import { Location } from './entities/locations';
 import { Abduction } from './entities/abductions';
+import { Spaceship } from './entities/spaceships';
+import { Planet } from './entities/planets';
 const optionalEntities = [];
 @Module({
   imports: [
@@ -21,7 +23,11 @@ const optionalEntities = [];
         Human,
         Location,
         Abduction,
+        Spaceship,
+        Planet,
         ...optionalEntities,
+        ,
+        ,
       ],
     }),
   ],
