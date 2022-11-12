@@ -64,7 +64,7 @@ async function bootstrap() {
 
   fs.writeFileSync('dist/spec/aliens-api-spec.json', JSON.stringify(document));
 
-  app.use(morgan('tiny'));
+  // app.use(morgan('tiny'));
 
   await app.listen(Number(conf.NEST_PORT) || 5917);
   console.log(
