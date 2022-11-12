@@ -2,8 +2,6 @@
   <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
 </p>
 
-<br />
-
 <p align="center">
   <a href="http://nestbuilder.io/" target="blank"><img src="https://github.com/nestbuilder/nestbuilder-media/blob/main/NestBuilder-Transparent.svg" width="400" alt="Nest Builder Logo" /></a>
 </p>
