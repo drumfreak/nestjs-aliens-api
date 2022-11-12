@@ -3,6 +3,7 @@
 </p>
 
 <p align="center">
+Built with<br />
   <a href="http://nestbuilder.io/" target="blank"><img src="https://github.com/nestbuilder/nestbuilder-media/blob/main/NestBuilder-Transparent.svg" width="400" alt="Nest Builder Logo" /></a>
 </p>
 
@@ -28,7 +29,7 @@ configure .env and create database
 $ npm run start:docker
 ```
 
-Installing npm:
+Installing npm packages
 
 ```bash
 $ npm install
@@ -69,6 +70,7 @@ Nest is an MIT-licensed open source project. It can grow thanks to the sponsors 
 - Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
 - Website - [https://nestjs.com](https://nestjs.com/)
 - Twitter - [@nestframework](https://twitter.com/nestframework)
+- Nestbuilder - [http://github.com/nestbuilder](https://github.com/nestbuilder)
 
 ## License
 
