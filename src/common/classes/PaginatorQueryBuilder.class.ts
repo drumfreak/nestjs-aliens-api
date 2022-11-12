@@ -18,9 +18,10 @@ export default class PaginatorQueryBuilder {
       orWhere[`${alias}.name`] = Like(`%${body.keywords}%`);
       orWhere[`${alias}.description`] = Like(`%${body.keywords}%`);
     } else if (body.keywords && body.keywords !== '') {
-      const searchFields = body.searchFields
-        .split('&')
-        .map((field) => field.split('=')[1]);
+      let searchFields = body.searchFields.split(',');
+      searchFields = searchFields.map((field) => {
+        return `${field}`;
+      });
       searchFields.forEach((field: any) => {
         orWhere.push({
           [field]: Like(`%${body.keywords}%`),
