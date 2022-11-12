@@ -3,7 +3,6 @@
 </p>
 
 <p align="center">
-Built with<br />
   <a href="http://nestbuilder.io/" target="blank"><img src="https://github.com/nestbuilder/nestbuilder-media/blob/main/NestBuilder-Transparent.svg" width="400" alt="Nest Builder Logo" /></a>
 </p>
 
